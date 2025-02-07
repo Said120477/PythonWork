@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Месяц {{month.name}}</title>
+</head>
+<body>
+    <h2 style="color: blue">Итоги года</h2>
+
+    <h2>{{ month.number }}) {{ month.name }}</h2>
+    <p>{{month.result}}</p>
+
+    {% if month.image %}
+        <img src="{{ month.image.url }}">
+    {% endif %}
+
+    <form method="post" action="{% url 'month' month.number %}">
+        {% csrf_token %}
+        <p><label>Итоги</label></p>
+        <p><textarea name="results"></textarea></p>
+        <p><button>Добавить</button></p>
+    </form>
+
+</body>
+</html>

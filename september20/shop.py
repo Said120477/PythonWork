@@ -1,6 +1,6 @@
 class Shop:
     products = {'молоко': 10, 'колбаса': 20, 'йогурт': 30}
-    discounted_products = {'сосиски', 'яйца', 'печеньки'}
+    discounted_products = ['молоко']
     def __init__(self):
         self.count = 0
         self.all_sum = 0
@@ -9,8 +9,11 @@ class Shop:
 
     def buy(self, prod):
         if prod in self.products:
-            self.all_sum += self.products[prod]
+            price = self.products[prod]
+            if prod in self.discounted_products:
+                price -= 5
             self.count += 1
+            self.all_sum += 1
             print(f'купили {self.products[prod]}')
         else:
             print('такого нет')
@@ -25,21 +28,14 @@ class Shop:
         print('хорошего дня')
 
     def check_discount(self, product):
-        if product in self.discounted_products:
-            product.price -= 5
-            self.check_discount(product)
-            print(f"Покупка: {product}, Цена после скидки: {product.price} руб.")
+        return product in self.discounted_products
 
 
     def delete_product(self, product):
         if product in self.products:
-            self.products.remove(product)
-        if product in self.discounted_products:
-            self.discounted_products.remove(product)
-            print(f"Товар {product.name} удален из базы данных.")
+            self.products.pop(product)
         else:
             print("Товар не найден.")
-
 
 
 shop = Shop()
@@ -51,4 +47,5 @@ shop.buy('яйца')
 shop.get_info()
 shop.check_discount('печеньки')
 shop.delete_product('сосиски')
+print(shop.products)
 

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+</head>
+<body>
+    <a>Главная страница</a>
+
+    {% for task in todo_data %}
+    <p>{{ task['id'] }} - {{ task['name'] }}</p>
+    {% endfor %}
+
+    <a href="http://http://127.0.0.1:5000/about">Страница контактов</a>
+    <a href="{{ url_for('about_page') }}">Страница контактов</a>
+
+    <h2>Список пользователей</h2>
+    {% for user in users %}
+    <p><a href="{{url_for('user_tasks', user_id=user.id) }}"> Пользователь {{user.name}} {{ user.id }} </a></p>
+    {% endfor %}
+</body>
+</html>

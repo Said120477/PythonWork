@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>страница с заметками</title>
+</head>
+<body>
+    <h1>Тут будет список заметок</h1>
+    {% for note in notes_list %}
+        {% if note.id == 1 %}
+            <b>{{note.id}}. {{note.text}}</b>
+        {% else %}
+            <p>{{ note.id }}. {{ note.text }}</p>
+        {% endif %}
+    {% endfor %}
+</body>
+</html>
