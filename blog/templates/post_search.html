@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="row mt-4">
+    <div class="col-10" action="{% url 'post_search' %}"><h2>{{post.title}}</h2>
+
+        <form class="row g-2 mb-3">
+            <div class="col-auto">
+                <input name="text" value="{{ text }}" class="form-control" placeholder="найти запись">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary">Найти</button>
+            </div>
+        </form>
+
+
+        {% for post in posts %}
+        <div class="col-10 mb-4">
+
+            <div class="card">
+                <div class="card-header">
+
+                    {% if post.category %}
+                    {{ post.category }}
+                    {% endif %}
+                    {% if post.profile %}
+                    <p>Автор: {{ post.profile.user.username }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.text|slice:20 }}</p>
+                    <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Читать</a>
+
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+{% endblock %}

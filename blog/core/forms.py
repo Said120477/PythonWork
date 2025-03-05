@@ -11,6 +11,7 @@ class PostAddModelForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = '__all__'
+        exclude = ['profile']
 
 
 class PostAddForm(forms.Form):
@@ -34,7 +35,7 @@ class FeedbackForm(forms.Form):
 
     def clean_feedback(self):
         text = self.cleaned_data['feedback']
-        words = ['дурак', 'козёл', '']
+        words = ['дурак', 'козёл']
         for word in words:
             if word in text:
                 raise ValidationError('в тексте есть запрещённые слова!')
@@ -49,5 +50,21 @@ class CommentAddForm(forms.Form):
         if len(title) > 15:
             raise ValidationError('Длина должна быть не больше 15')
         return title
+
+
+class PostFilterForm(forms.Form):
+    category = forms.ModelMultipleChoiceField(queryset=PostCategory.objects.all(),
+                            widget=forms.CheckboxSelectMultiple,
+                            label='Категория', required=False)
+    order = forms.ChoiceField(choices=[('like_desc', 'много лайков'), ('date_desc', 'сначала старые'),
+                            ('like_asc', 'мало лайков'), ('date_asc', 'сначала новые')],
+                            label='Сортировка', required=False)
+
+
+
+
+
+
+
 
 

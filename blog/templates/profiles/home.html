@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row mt-4">
+    <div class="col sm-5">
+
+
+        <h2>Личный кабинет</h2>
+
+        <p>{{ request.user.username }}</p>
+        <p>{{ request.user.profile.bio }}</p>
+        <h3>Ваши публикации</h3>
+        {% for post in posts %}
+        <br><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+        <a class="mr-5" href="{% url 'post_edit' post.id %}">Редактировать</a>
+        <a class="mr-5" href="{% url 'post_delete' post.id %}">Удалить</a>
+        {% endfor %}
+
+
+
+    </div>
+</div>
+
+{% endblock %}
